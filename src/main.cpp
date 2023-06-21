@@ -5,21 +5,16 @@
 #include <Bitcoin.h>
 #include <esp32_smartdisplay.h>
 #define QRCODE_VERSION 5
-void loop() {
 
-
-}
 
 void setup() {
-Serial.begin(115200);
-    // Serial.setDebugOutput(true);
-    Serial.print("\n");
-    generar_direcciones_derivadas_de_xpub();
-
+  Serial.begin(115200);
+  Serial.setDebugOutput(true);
+  Serial.print("\n");
 }
 
-void generar_direcciones_derivadas_de_xpub()
-{
+void generar_direcciones_derivadas_de_xpub(){
+
   // this is out account xpub from previous part
   HDPublicKey xpub("tpubDDEJkUr9sx6WxdwUT8Gei7P3bA2zsKuCPzmLG3WTtVEr7EJ83YDi3CCXyWWYKRhC9SFAx9zXSVPBT13uGRF8PK4WZRq3EGSujBxH1dmC4Vt");
   // deriving first 20 public keys and printing their addresses
@@ -28,7 +23,7 @@ void generar_direcciones_derivadas_de_xpub()
   int btc_cursor_x = 275;
   int btc_cursor_y = 50;
 
-  for(int i=0; i<20; i++){
+  for(int i=0; i<10; i++){
     // deriving in a different manner
     pub = xpub.child(0).child(i);
 
@@ -36,7 +31,10 @@ void generar_direcciones_derivadas_de_xpub()
     Serial.println(btc_receive_address);
 
     btc_cursor_y = (i*50) + 50;
-    
-    
+  }   
+}
 
+void loop() {
+  generar_direcciones_derivadas_de_xpub();
+  delay(3000);
 }
