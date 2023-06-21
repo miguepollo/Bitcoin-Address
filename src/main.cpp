@@ -4,7 +4,7 @@
 #include <WiFiClient.h>
 #include <Bitcoin.h>
 #include <esp32_smartdisplay.h>
-
+#define QRCODE_VERSION 5
 void loop() {
 
 
