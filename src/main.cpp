@@ -13,28 +13,6 @@ void setup() {
   Serial.print("\n");
 }
 
-void generar_direcciones_derivadas_de_xpub(){
-
-  // this is out account xpub from previous part
-  HDPublicKey xpub("tpubDDEJkUr9sx6WxdwUT8Gei7P3bA2zsKuCPzmLG3WTtVEr7EJ83YDi3CCXyWWYKRhC9SFAx9zXSVPBT13uGRF8PK4WZRq3EGSujBxH1dmC4Vt");
-  // deriving first 20 public keys and printing their addresses
-  HDPublicKey pub;
-
-  int btc_cursor_x = 275;
-  int btc_cursor_y = 50;
-
-  for(int i=0; i<10; i++){
-    // deriving in a different manner
-    pub = xpub.child(0).child(i);
-
-    String btc_receive_address = pub.address();
-    Serial.println(btc_receive_address);
-
-    btc_cursor_y = (i*50) + 50;
-  }   
-}
-
-
 void codigoqrprueba() {
  Serial.begin(115200);
 
@@ -44,7 +22,7 @@ void codigoqrprueba() {
     // Create the QR code
     QRCode qrcode;
     uint8_t qrcodeData[qrcode_getBufferSize(3)];
-    qrcode_initText(&qrcode, qrcodeData, 3, 0, "SUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
+    qrcode_initText(&qrcode, qrcodeData, 3, 0, 'fiberlaiv');
   
     // Delta time
     dt = millis() - dt;
@@ -67,16 +45,33 @@ void codigoqrprueba() {
             Serial.print(qrcode_getModule(&qrcode, x, y) ? "\u2588\u2588": "  ");
 
         }
-
         Serial.print("\n");
     }
-
     // Bottom quiet zone
     Serial.print("\n\n\n\n");
 }
 
-void loop() {
+void generar_direcciones_derivadas_de_xpub(){
+
+  // this is out account xpub from previous part
+  HDPublicKey xpub("xpub6CEzojEJiUVE2X2iXzVaziK3ZLDkdx35b4cbgCa43GSaNRkrtkKhBUCm5HC1VjghX6ZMtYocsaekJUubeuv8NYQRUyh2CDycRfN8NG1gRyX");
+  // deriving first 20 public keys and printing their addresses
+  HDPublicKey pub;
+
+  int btc_cursor_x = 275;
+  int btc_cursor_y = 50;
+
+  for(int i=0; i<10; i++){
+//deriving in a different manner
+    pub = xpub.child(0).child(i);
+
+    String btc_receive_address = pub.address();
+    Serial.println(btc_receive_address);
+
+}
+
+void loop(){
 generar_direcciones_derivadas_de_xpub();
-delay(7000);
 codigoqrprueba();
+delay(7000);
 }
